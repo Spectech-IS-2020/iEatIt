@@ -3,7 +3,7 @@ CREATE DATABASE ieatit;
 CREATE TABLE Usuario (
     IdUsuario INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     Nombre varchar(45),
-    Direccion, varchar(45),
+    Direccion varchar(45),
     Correo varchar(45),
     Telefono varchar(45)
 );
@@ -12,7 +12,7 @@ CREATE TABLE Administrador (
     IdAdministrador INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     IdUsuario int,
     Nombre varchar(45),
-    Direccion, varchar(45),
+    Direccion varchar(45),
     Correo varchar(45),
     Telefono varchar(45),
     FOREIGN KEY (IdUsuario) REFERENCES Usuario(IdUsuario)
@@ -22,7 +22,7 @@ CREATE TABLE Repartidor (
     IdRepartidor INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     IdUsuario int,
     Nombre varchar(45),
-    Direccion, varchar(45),
+    Direccion varchar(45),
     Correo varchar(45),
     Telefono varchar(45),
     FOREIGN KEY (IdUsuario) REFERENCES Usuario(IdUsuario)
@@ -32,7 +32,7 @@ CREATE TABLE Cliente (
     IdCliente INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     IdUsuario int,
     Nombre varchar(45),
-    Direccion, varchar(45) DEFAULT 'SIN DIRECCION',
+    Direccion varchar(45) DEFAULT 'SIN DIRECCION',
     Correo varchar(45),
     Telefono varchar(45),
     FOREIGN KEY (IdUsuario) REFERENCES Usuario(IdUsuario)
