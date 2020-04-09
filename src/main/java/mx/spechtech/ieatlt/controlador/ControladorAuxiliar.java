@@ -9,6 +9,7 @@ import mx.spechtech.ieatlt.modelo.repositorio.RepositorioDireccion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -21,18 +22,20 @@ public class ControladorAuxiliar {
     private RepositorioDireccion repositorioDireccion;
 
     @PostMapping(path = "/alimento")
-    public @ResponseBody String crearOrden(Alimento a) {
-        repositorioAlimento.save(a);
+    public @ResponseBody String crearOrden(@RequestParam String nombre, @RequestParam double precio) {
+        repositorioAlimento.save(new Alimento(nombre, precio));
         return "Alimento guardado!";
     }
 
     @PostMapping(path = "/cliente")
-    public @ResponseBody String crearCliente(Cliente c) {
-        repositorioCliente.save(c);
+    public @ResponseBody String crearCliente(@RequestParam String nombre) {
+        repositorioCliente.save(new Cliente(nombre));
         return "Cliente guardado!";
     }
     @PostMapping(path = "/direccion")
-    public @ResponseBody String crearDireccion(Direccion d) {
+    public @ResponseBody String crearDireccion(@RequestParam String direccion) {
+        Cliente c = repositorioCliente.findById(8).get();
+        Direccion d = new Direccion(direccion, c);
         repositorioDireccion.save(d);
         return "Direccion guardada!";
     }

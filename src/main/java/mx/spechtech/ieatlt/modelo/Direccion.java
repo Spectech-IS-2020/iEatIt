@@ -1,6 +1,7 @@
 package mx.spechtech.ieatlt.modelo;
 
 import javax.persistence.*;
+import java.util.LinkedList;
 import java.util.List;
 
 @Entity
@@ -14,9 +15,10 @@ public class Direccion {
 
     public Direccion() {}
 
-    public Direccion(String direccion, List<Cliente> clientes) {
+    public Direccion(String direccion, Cliente cliente) {
         this.direccion = direccion;
-        this.clientes = clientes;
+        clientes = new LinkedList<>();
+        clientes.add(cliente);
     }
 
     public int getIdDireccion() {

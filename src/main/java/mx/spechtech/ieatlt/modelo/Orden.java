@@ -16,7 +16,7 @@ public class Orden {
     private double costoTotal;
     @ManyToOne
     private Direccion direccionDeEntrega;
-    @OneToOne
+    @ManyToOne
     private Cliente cliente;
     @ManyToMany
     private List<Alimento> alimentos;
