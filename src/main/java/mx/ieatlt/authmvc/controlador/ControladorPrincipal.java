@@ -31,11 +31,15 @@ public class ControladorPrincipal {
 
     @GetMapping("/login")
     public String login() {
+        if(servicioAutenticacion.usuarioActual() != null)
+            return "redirect:/home";
         return "auth/login";
     }
 
     @GetMapping("/registrar")
     public String registrar(Model model) {
+        if(servicioAutenticacion.usuarioActual() != null)
+            return "redirect:/home";
         model.addAttribute("formCliente", new Usuario());
         model.addAttribute("formDireccion", new Direccion());
         return "auth/registrar";
@@ -45,7 +49,7 @@ public class ControladorPrincipal {
     public String registrar(@ModelAttribute Usuario formCliente, @ModelAttribute Direccion formDireccion) {
         servicioUsuario.guardarCliente(formCliente, formDireccion);
         servicioAutenticacion.autoLogin(formCliente.getEmail(), formCliente.getContrasenia());
-        return "redirect:/hello";
+        return "redirect:/home";
     }
 
     @GetMapping("/cliente/index")
