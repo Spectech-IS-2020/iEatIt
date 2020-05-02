@@ -25,7 +25,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("No user found with email: " + username);
         }
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        grantedAuthorities.add(new SimpleGrantedAuthority(usuario.getRole().toString()));
+        grantedAuthorities.add(new SimpleGrantedAuthority(usuario.getRole().getName()));
         return new User(usuario.getEmail(), usuario.getContrasenia(), grantedAuthorities);
     }
 }

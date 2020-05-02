@@ -1,7 +1,11 @@
 package mx.ieatlt.authmvc.modelo;
 
 public enum Role {
-    ROLE_ADMINISTRADOR,
-    ROLE_CLIENTE,
-    ROLE_REPARTIDOR,
+    ADMINISTRADOR,
+    CLIENTE,
+    REPARTIDOR;
+
+    public String getName() {
+        return "ROLE_" + super.toString();
+    }
 }
