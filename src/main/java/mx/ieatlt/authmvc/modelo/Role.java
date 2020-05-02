@@ -1,7 +1,7 @@
 package mx.ieatlt.authmvc.modelo;
 
 public enum Role {
-    ADMINISTRADOR,
-    CLIENTE,
-    REPARTIDOR,
+    ROLE_ADMINISTRADOR,
+    ROLE_CLIENTE,
+    ROLE_REPARTIDOR,
 }

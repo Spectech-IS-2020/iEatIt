@@ -28,11 +28,11 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
     }
 
     public void guardarCliente(Usuario usuario, Direccion direccion) {
-        save(usuario, Role.CLIENTE);
+        save(usuario, Role.ROLE_CLIENTE);
         repositorioDireccion.save(direccion);
     }
 
     public void guardarRepartidor(Usuario usuario) {
-        save(usuario, Role.REPARTIDOR);
+        save(usuario, Role.ROLE_REPARTIDOR);
     }
 }
