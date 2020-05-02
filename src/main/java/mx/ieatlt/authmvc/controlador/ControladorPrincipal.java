@@ -47,4 +47,19 @@ public class ControladorPrincipal {
         servicioAutenticacion.autoLogin(formCliente.getEmail(), formCliente.getContrasenia());
         return "redirect:/hello";
     }
+
+    @GetMapping("/cliente/index")
+    public String clienteIndex() {
+        return "cliente/index";
+    }
+
+    @GetMapping("/administrador/index")
+    public String administradorIndex() {
+        return "administrador/index";
+    }
+
+    @GetMapping("/repartidor/index")
+    public String repartidorIndex() {
+        return "repartidor/index";
+    }
 }
