@@ -1,5 +1,7 @@
 package mx.ieatlt.authmvc.servicio.implementacion;
 
+import mx.ieatlt.authmvc.modelo.Usuario;
+import mx.ieatlt.authmvc.repositorio.RepositorioUsuario;
 import mx.ieatlt.authmvc.servicio.ServicioAutenticacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,6 +17,9 @@ public class ServicioAutenticacionImpl implements ServicioAutenticacion {
     @Autowired
     UserDetailsService userDetailsService;
 
+    @Autowired
+    RepositorioUsuario repositorioUsuario;
+
     @Override
     public void autoLogin(String email, String password) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(email);
@@ -22,5 +27,11 @@ public class ServicioAutenticacionImpl implements ServicioAutenticacion {
         Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
         context.setAuthentication(authentication);
         SecurityContextHolder.setContext(context);
+    }
+
+    @Override
+    public Usuario usuarioActual() {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        return repositorioUsuario.findByEmail(email);
     }
 }
