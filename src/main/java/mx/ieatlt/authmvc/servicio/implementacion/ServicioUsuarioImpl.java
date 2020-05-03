@@ -29,6 +29,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 
     public void guardarCliente(Usuario usuario, Direccion direccion) {
         save(usuario, Role.CLIENTE);
+        direccion.setUsuario(usuario);
         repositorioDireccion.save(direccion);
     }
 

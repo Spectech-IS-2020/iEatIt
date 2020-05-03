@@ -1,5 +1,6 @@
 package mx.ieatlt.authmvc.controlador;
 
+import mx.ieatlt.authmvc.formulario.FormRegistro;
 import mx.ieatlt.authmvc.modelo.Direccion;
 import mx.ieatlt.authmvc.modelo.Usuario;
 import mx.ieatlt.authmvc.servicio.ServicioAutenticacion;
@@ -40,15 +41,15 @@ public class ControladorPrincipal {
     public String registrar(Model model) {
         if(servicioAutenticacion.usuarioActual() != null)
             return "redirect:/home";
-        model.addAttribute("formCliente", new Usuario());
-        model.addAttribute("formDireccion", new Direccion());
+        model.addAttribute("formRegistro", new FormRegistro());
         return "auth/registrar";
     }
 
     @PostMapping("/registrar")
-    public String registrar(@ModelAttribute Usuario formCliente, @ModelAttribute Direccion formDireccion) {
-        servicioUsuario.guardarCliente(formCliente, formDireccion);
-        servicioAutenticacion.autoLogin(formCliente.getEmail(), formCliente.getContrasenia());
+    public String registrar(@ModelAttribute FormRegistro formRegistro) {
+        Usuario usuario = formRegistro.buildUsuario();
+        servicioUsuario.guardarCliente(usuario, formRegistro.buildDireccion());
+        servicioAutenticacion.autoLogin(usuario.getEmail(), usuario.getContrasenia());
         return "redirect:/home";
     }
 
