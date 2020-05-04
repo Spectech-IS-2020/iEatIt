@@ -42,6 +42,7 @@ public class ControladorPrincipal {
         if(servicioAutenticacion.usuarioActual() != null)
             return "redirect:/home";
         model.addAttribute("formRegistro", new FormRegistro());
+        model.addAttribute("title", "Crear cuenta");
         return "auth/registrar";
     }
 
