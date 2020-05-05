@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
-<head>
-    <title>Spring Security Example </title>
-</head>
+<head th:replace="fragments :: head"></head>
+<body>
+<nav th:replace="fragments :: nav"></nav>
+
 <body>
 <div th:if="${param.error}">
     Invalid username and password.
@@ -17,4 +18,6 @@
     <p>Click <a th:href="@{/registrar}">here</a> to register.</p>
 </form>
 </body>
+
+<div th:replace="fragments :: bootstrap-js"></div>
 </html>
