@@ -1,24 +1,18 @@
-package mx.ieatlt.authmvc.modelo;
+package mx.spechtech.ieatlt.formulario;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import mx.spechtech.ieatlt.modelo.Direccion;
+import mx.spechtech.ieatlt.modelo.Usuario;
 
-@Entity
-public class Usuario {
-    @Id
+public class FormRegistro {
     private String email;
-
     private String nombre;
     private String apellidoPaterno;
     private String apellidoMaterno;
     private String contrasenia;
-    @Transient
     private String confContrasenia;
-    private Role role;
+    private String direccion;
 
-    public Usuario() {
+    public FormRegistro() {
     }
 
     public String getEmail() {
@@ -41,8 +35,8 @@ public class Usuario {
         return apellidoPaterno;
     }
 
-    public void setApellidoPaterno(String apellidoPaterno) {
-        this.apellidoPaterno = apellidoPaterno;
+    public void setApellidoPaterno(String apellidPaterno) {
+        this.apellidoPaterno = apellidPaterno;
     }
 
     public String getApellidoMaterno() {
@@ -61,19 +55,36 @@ public class Usuario {
         this.contrasenia = contrasenia;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
     public String getConfContrasenia() {
         return confContrasenia;
     }
 
     public void setConfContrasenia(String confContrasenia) {
         this.confContrasenia = confContrasenia;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public Usuario buildUsuario() {
+        Usuario usuario = new Usuario();
+        usuario.setEmail(email);
+        usuario.setNombre(nombre);
+        usuario.setApellidoPaterno(apellidoPaterno);
+        usuario.setApellidoMaterno(apellidoMaterno);
+        usuario.setContrasenia(contrasenia);
+        usuario.setConfContrasenia(confContrasenia);
+        return usuario;
+    }
+
+    public Direccion buildDireccion() {
+        Direccion direccion = new Direccion();
+        direccion.setDireccion(this.direccion);
+        return direccion;
     }
 }

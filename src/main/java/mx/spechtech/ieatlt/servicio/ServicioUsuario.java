@@ -1,7 +1,7 @@
-package mx.ieatlt.authmvc.servicio;
+package mx.spechtech.ieatlt.servicio;
 
-import mx.ieatlt.authmvc.modelo.Direccion;
-import mx.ieatlt.authmvc.modelo.Usuario;
+import mx.spechtech.ieatlt.modelo.Direccion;
+import mx.spechtech.ieatlt.modelo.Usuario;
 
 public interface ServicioUsuario {
     void guardarCliente(Usuario usuario, Direccion direccion);

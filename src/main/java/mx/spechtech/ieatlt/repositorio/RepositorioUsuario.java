@@ -1,6 +1,6 @@
-package mx.ieatlt.authmvc.repositorio;
+package mx.spechtech.ieatlt.repositorio;
 
-import mx.ieatlt.authmvc.modelo.Usuario;
+import mx.spechtech.ieatlt.modelo.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RepositorioUsuario extends JpaRepository<Usuario, String> {

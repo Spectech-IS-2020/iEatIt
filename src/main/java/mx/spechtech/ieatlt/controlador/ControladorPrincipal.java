@@ -1,10 +1,9 @@
-package mx.ieatlt.authmvc.controlador;
+package mx.spechtech.ieatlt.controlador;
 
-import mx.ieatlt.authmvc.formulario.FormRegistro;
-import mx.ieatlt.authmvc.modelo.Direccion;
-import mx.ieatlt.authmvc.modelo.Usuario;
-import mx.ieatlt.authmvc.servicio.ServicioAutenticacion;
-import mx.ieatlt.authmvc.servicio.ServicioUsuario;
+import mx.spechtech.ieatlt.formulario.FormRegistro;
+import mx.spechtech.ieatlt.modelo.Usuario;
+import mx.spechtech.ieatlt.servicio.ServicioAutenticacion;
+import mx.spechtech.ieatlt.servicio.ServicioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

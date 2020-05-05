@@ -1,11 +1,11 @@
-package mx.ieatlt.authmvc.servicio.implementacion;
+package mx.spechtech.ieatlt.servicio.implementacion;
 
-import mx.ieatlt.authmvc.modelo.Direccion;
-import mx.ieatlt.authmvc.modelo.Role;
-import mx.ieatlt.authmvc.modelo.Usuario;
-import mx.ieatlt.authmvc.repositorio.RepositorioDireccion;
-import mx.ieatlt.authmvc.repositorio.RepositorioUsuario;
-import mx.ieatlt.authmvc.servicio.ServicioUsuario;
+import mx.spechtech.ieatlt.modelo.Direccion;
+import mx.spechtech.ieatlt.modelo.Role;
+import mx.spechtech.ieatlt.modelo.Usuario;
+import mx.spechtech.ieatlt.repositorio.RepositorioDireccion;
+import mx.spechtech.ieatlt.repositorio.RepositorioUsuario;
+import mx.spechtech.ieatlt.servicio.ServicioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

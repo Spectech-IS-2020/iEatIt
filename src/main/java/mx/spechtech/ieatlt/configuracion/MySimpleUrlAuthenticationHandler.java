@@ -1,6 +1,6 @@
-package mx.ieatlt.authmvc.configuracion;
+package mx.spechtech.ieatlt.configuracion;
 
-import mx.ieatlt.authmvc.modelo.Role;
+import mx.spechtech.ieatlt.modelo.Role;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
 import org.springframework.security.core.Authentication;

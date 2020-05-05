@@ -1,6 +1,6 @@
-package mx.ieatlt.authmvc.repositorio;
+package mx.spechtech.ieatlt.repositorio;
 
-import mx.ieatlt.authmvc.modelo.Direccion;
+import mx.spechtech.ieatlt.modelo.Direccion;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RepositorioDireccion extends JpaRepository<Direccion, Long> {

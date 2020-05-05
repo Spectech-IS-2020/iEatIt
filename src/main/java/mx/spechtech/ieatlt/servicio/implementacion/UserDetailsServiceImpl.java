@@ -1,7 +1,7 @@
-package mx.ieatlt.authmvc.servicio.implementacion;
+package mx.spechtech.ieatlt.servicio.implementacion;
 
-import mx.ieatlt.authmvc.modelo.Usuario;
-import mx.ieatlt.authmvc.repositorio.RepositorioUsuario;
+import mx.spechtech.ieatlt.modelo.Usuario;
+import mx.spechtech.ieatlt.repositorio.RepositorioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

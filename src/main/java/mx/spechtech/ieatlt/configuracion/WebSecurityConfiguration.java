@@ -1,7 +1,7 @@
-package mx.ieatlt.authmvc.configuracion;
+package mx.spechtech.ieatlt.configuracion;
 
-import mx.ieatlt.authmvc.modelo.Role;
-import mx.ieatlt.authmvc.servicio.implementacion.UserDetailsServiceImpl;
+import mx.spechtech.ieatlt.modelo.Role;
+import mx.spechtech.ieatlt.servicio.implementacion.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

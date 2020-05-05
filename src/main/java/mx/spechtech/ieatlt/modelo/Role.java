@@ -1,4 +1,4 @@
-package mx.ieatlt.authmvc.modelo;
+package mx.spechtech.ieatlt.modelo;
 
 public enum Role {
     ADMINISTRADOR,

@@ -1,6 +1,6 @@
-package mx.ieatlt.authmvc.servicio;
+package mx.spechtech.ieatlt.servicio;
 
-import mx.ieatlt.authmvc.modelo.Usuario;
+import mx.spechtech.ieatlt.modelo.Usuario;
 
 public interface ServicioAutenticacion {
     void autoLogin(String email, String password);
