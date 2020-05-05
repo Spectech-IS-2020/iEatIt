@@ -1,4 +1,4 @@
-package mx.spechtech.ieatlt.modelo.repositorio;
+package mx.spechtech.ieatlt.repositorio;
 
 import mx.spechtech.ieatlt.modelo.Categoria;
 import org.springframework.data.repository.CrudRepository;

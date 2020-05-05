@@ -1,7 +1,7 @@
 package mx.spechtech.ieatlt.controlador;
 
 import mx.spechtech.ieatlt.modelo.Categoria;
-import mx.spechtech.ieatlt.modelo.repositorio.RepositorioCategoria;
+import mx.spechtech.ieatlt.repositorio.RepositorioCategoria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.PathVariable;
+import mx.spechtech.ieatlt.servicio.ServicioAutenticacion;
 
 @Controller
 @RequestMapping(path = "/categorias")
@@ -20,10 +21,13 @@ public class ControladorCategoria {
     @Autowired
     private RepositorioCategoria repositorioCategoria;
 
+    @Autowired
+    private ServicioAutenticacion servicioAutenticacion;
+
     @GetMapping(path = "/crear")
     public String crearCategoria(Model model) {
         model.addAttribute("categoria", new Categoria());
-        
+        model.addAttribute("title", "Crear categoria");
         return "categorias/crear";
     }
 
@@ -37,14 +41,15 @@ public class ControladorCategoria {
     @GetMapping(path="/listar")
     public String listarCategorias(Model model) {
         model.addAttribute("categorias", repositorioCategoria.findAll());
-
+        model.addAttribute("usuario", servicioAutenticacion.usuarioActual());
+        model.addAttribute("title", "Categorias");
         return "categorias/listar";
     }
 
     @GetMapping(path="/actualizar/{id}")
     public String listarCategorias(@PathVariable("id") int id, Model model) {
         model.addAttribute("categoria", repositorioCategoria.findById(id).get());
-
+        model.addAttribute("title", "Actualizar categoria");
         return "categorias/actualizar";
     }
 
