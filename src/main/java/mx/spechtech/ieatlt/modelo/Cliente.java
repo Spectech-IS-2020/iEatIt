@@ -1,9 +1,7 @@
 package mx.spechtech.ieatlt.modelo;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Cliente {
@@ -11,6 +9,8 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int idCliente;
     private String nombre;
+    @ManyToMany(mappedBy = "clientes")
+    List<Direccion> direcciones;
 
     public Cliente() {}
 
@@ -24,5 +24,9 @@ public class Cliente {
 
     public String getNombre() {
         return nombre;
+    }
+
+    public Direccion obtenerDireccionDefault() {
+        return direcciones.get(0);
     }
 }

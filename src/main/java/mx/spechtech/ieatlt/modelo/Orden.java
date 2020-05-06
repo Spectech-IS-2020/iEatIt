@@ -1,5 +1,7 @@
 package mx.spechtech.ieatlt.modelo;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Date;
@@ -8,10 +10,12 @@ import java.util.List;
 @Entity
 public class Orden {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
     private String idOrden;
     private Date horaCreacion;
     private Date horaDeEntregaAproximada;
+    @Enumerated(EnumType.STRING)
     private Estado estado;
     private double costoTotal;
     @ManyToOne
@@ -21,7 +25,8 @@ public class Orden {
     @ManyToMany
     private List<Alimento> alimentos;
 
-    public Orden() {}
+    public Orden() {
+    }
 
     public Orden(List<Alimento> alimentos, Cliente cliente, Direccion direccionDeEntrega) {
         this.alimentos = alimentos;
@@ -43,7 +48,7 @@ public class Orden {
 
     private void calculaCostoTotal() {
         costoTotal = 0;
-        for(Alimento a : alimentos) {
+        for (Alimento a : alimentos) {
             costoTotal += a.getPrecio();
         }
     }
