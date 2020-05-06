@@ -9,40 +9,102 @@
                         <i data-feather="plus"></i>
                 </a>
             </div>
-            <table class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th class="text-center" scope="col"> # </th>
-                        <th class="text-center" scope="col"> Nombre </th>
-                        <th class="text-center" scope="col"> Precio </th>
-                        <th class="text-center" scope="col"> Descripción </th>
-                        <th th:if="${usuario.getRole().getName() == 'ROLE_ADMINISTRADOR'}"
-                            class="text-center" scope="col" colspan="2"> Opciones </th>
-                    </tr>
-                </thead>
-                <tbody class="text-center">
-                    <tr th:each="alimento: ${alimentos}">
-                        <th scope="row" th:text="${alimento.id}" />
-                        <td th:text="${alimento.nombre}" />
-                        <td th:text="${alimento.precio}" />
-                        <td th:text="${alimento.descripcion}" />
-                        <td th:if="${usuario.getRole().getName() == 'ROLE_ADMINISTRADOR'}">
-                            <a type="button" class="btn btn-outline-info"
-                                    th:href="@{/alimentos/actualizar/{id}(id=${alimento.id})}">
-                                Actualizar
-                            </a>
-                        </td>
-                        <td th:if="${usuario.getRole().getName() == 'ROLE_ADMINISTRADOR'}">
-                            <form th:action="@{/alimentos/eliminar(id=${alimento.getId()})}" method="post">
-                                <button type="submit" class="btn btn-outline-danger">
-                                    Eliminar
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="row">
+                <div class="col-9">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th class="text-center" scope="col"> # </th>
+                                <th class="text-center" scope="col"> Nombre </th>
+                                <th class="text-center" scope="col"> Precio </th>
+                                <th class="text-center" scope="col"> Descripción </th>
+                                <th th:if="${usuario.getRole().getName() == 'ROLE_CLIENTE'}"
+                                    class="text-center" scope="col"> Pedir
+                                </th>
+                                <th th:if="${usuario.getRole().getName() == 'ROLE_ADMINISTRADOR'}"
+                                    class="text-center" scope="col" colspan="2"> Opciones
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-center">
+                            <tr th:each="alimento: ${alimentos}">
+                                <th scope="row" th:text="${alimento.id}" />
+                                <td th:text="${alimento.nombre}" />
+                                <td th:text="${alimento.precio}" />
+                                <td th:text="${alimento.descripcion}" />
+                                <td th:if="${usuario.getRole().getName() == 'ROLE_CLIENTE'}">
+                                    <button class="order text-white btn btn-success"
+                                        th:attr="data-id=${alimento.id}, data-toReq=true, data-name=${alimento.nombre}">
+                                        <i class="show" data-feather="plus-square"></i>
+                                    </button>
+                                </td>
+                                <td th:if="${usuario.getRole().getName() == 'ROLE_ADMINISTRADOR'}">
+                                    <a type="button" class="btn btn-outline-info"
+                                            th:href="@{/alimentos/actualizar/{id}(id=${alimento.id})}">
+                                        Actualizar
+                                    </a>
+                                </td>
+                                <td th:if="${usuario.getRole().getName() == 'ROLE_ADMINISTRADOR'}">
+                                    <form th:action="@{/alimentos/eliminar(id=${alimento.getId()})}" method="post">
+                                        <button type="submit" class="btn btn-outline-danger">
+                                            Eliminar
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-3">
+                    <h1> Carrito </h1>
+                    <ul id="carrito"> </ul>
+                    <a hidden id="order" type="button" class="btn btn-outline-info">
+                        Agregar al carrito
+                    </a>
+                    <!-- <form id="shop" hidden action="/orden/crear" method="post">
+                        <input type="text" name="" value="">
+                    </form> -->
+                </div>
+            </div>
         </div>
     </body>
     <div th:replace="fragments :: bootstrap-js"></div>
+    <script type="text/javascript">
+        $(".order").on( "click", function(event) {
+            var id = $(this).attr("data-id");
+            var name = $(this).attr("data-name");
+            $("#carrito").append(
+                "<li data-id=" + id + ">" + name + "</li>"
+            );
+            $("#order").prop("hidden", false);
+            $(this).prop("disabled", true);
+            // if ($(this).attr("data-id") == "true") {
+            //     $(this).html("<i data-feather='minus-square'></i>");
+            //     $(this).attr("data-id", "false")
+            // }
+            // else {
+            //     $(this).html("<i data-feather='plus-square'></i>");
+            //     $(this).attr("data-id", "true")
+            // }
+            // $(this).toggleClass("btn-success").toggleClass("btn-danger");
+            // feather.replace();
+        });
+        $("#order").on( "click", function( event ) {
+            var ids = [];
+            $("ul li").each(function(li) {
+                ids.push($(this).attr("data-id"));
+            });
+
+            $.ajax({
+                type: "POST",
+                contentType : 'application/json; charset=utf-8',
+                dataType : 'json',
+                url: "/orden/crear",
+                data: JSON.stringify(ids),
+            })
+              .done(function(msg) {
+                 console.log(msg);
+              });
+        });
+    </script>
 </html>

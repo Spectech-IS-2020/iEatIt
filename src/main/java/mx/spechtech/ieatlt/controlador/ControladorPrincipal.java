@@ -20,7 +20,9 @@ public class ControladorPrincipal {
     private ServicioAutenticacion servicioAutenticacion;
 
     @GetMapping(value = {"/", "/home"})
-    public String home() {
+    public String home(Model model) {
+        model.addAttribute("usuario", servicioAutenticacion.usuarioActual());
+        model.addAttribute("title", "iEatIt");
         return "home";
     }
 
@@ -30,9 +32,10 @@ public class ControladorPrincipal {
     }
 
     @GetMapping("/login")
-    public String login() {
+    public String login(Model model) {
         if(servicioAutenticacion.usuarioActual() != null)
             return "redirect:/home";
+        model.addAttribute("title", "Iniciar sesión");
         return "auth/login";
     }
 

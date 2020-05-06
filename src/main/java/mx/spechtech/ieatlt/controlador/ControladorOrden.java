@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 @Controller
 @RequestMapping(path = "/orden")
@@ -35,6 +37,7 @@ public class ControladorOrden {
     public String crearOrden(Model model) {
         Iterable<Alimento> alimentos = repositorioAlimento.findAll();
         model.addAttribute("alimentos", alimentos);
+        model.addAttribute("title", "Crear orden");
         return "orden/crear";
     }
 
@@ -44,8 +47,9 @@ public class ControladorOrden {
      * @param idAlimentos
      * @return
      */
-    @PostMapping(path = "/crear")
-    public String crearOrden(@RequestParam ArrayList<String> idAlimentos) {
+    @PostMapping(path="/crear", headers="Content-Type=application/json")
+    public String crearOrden(@RequestBody String alimentos) {
+        ArrayList<String> idAlimentos = getIds(alimentos);
         Usuario usuario = servicioAutenticacion.usuarioActual();
         Direccion direccion = usuario.getDireccion();
         List<Alimento> listaAlimentos = new LinkedList<>();
@@ -59,6 +63,16 @@ public class ControladorOrden {
         return "redirect:/orden/detalles/" + orden.getIdOrden();
     }
 
+    ArrayList<String> getIds(String alimentos) {
+        ArrayList<String> ids = new ArrayList<>();
+        Pattern p = Pattern.compile("\"([^\"]*)\"");
+        Matcher m = p.matcher(alimentos);
+        while (m.find())
+            ids.add(m.group(1));
+        System.out.println(ids);
+        return ids;
+    }
+
     /**
      * Regresa la vista mostrando la orden con id idOrden
      *
@@ -70,6 +84,7 @@ public class ControladorOrden {
     public String detallesOrden(@PathVariable String idOrden, Model model) {
         Optional<Orden> orden = repositorioOrden.findById(idOrden);
         model.addAttribute("orden", orden.get());
+        model.addAttribute("title", "Detalles de orden");
         return "orden/detalles";
     }
 
