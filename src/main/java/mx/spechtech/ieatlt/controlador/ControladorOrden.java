@@ -116,6 +116,7 @@ public class ControladorOrden {
         }
         orden.setEstado(estado);
         repositorioOrden.save(orden);
-        return "redirect:/orden/mostrar";
+        String redirectAEnCamino = orden.getEstado() == Estado.ENTREGADA ? "?estado=EN_CAMINO" : "";
+        return "redirect:/orden/mostrar" + redirectAEnCamino;
     }
 }
