@@ -6,7 +6,7 @@
 <nav th:replace="fragments :: nav"></nav>
 
 <div class="container">
-    <div class="row">
+    <div class="row py-5">
         <form method="post" th:action="@{/orden/crear}">
             <div class="custom-control custom-checkbox" th:each="alimento : ${alimentos}">
                 <input class="custom-control-input" type="checkbox" name="idAlimentos"

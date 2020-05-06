@@ -41,9 +41,9 @@ public class MySimpleUrlAuthenticationHandler implements AuthenticationSuccessHa
 
     protected String determineTargetUrl(final Authentication authentication) {
         Map<String, String> roleTargetUrlMap = new HashMap<>();
-        roleTargetUrlMap.put(Role.ADMINISTRADOR.getName(), "/administrador/index");
-        roleTargetUrlMap.put(Role.CLIENTE.getName(), "/cliente/index");
-        roleTargetUrlMap.put(Role.REPARTIDOR.getName(), "/repartidor/index");
+        roleTargetUrlMap.put(Role.ADMINISTRADOR.getName(), "/orden/mostrar?estado=PENDIENTE");
+        roleTargetUrlMap.put(Role.CLIENTE.getName(), "/alimentos/listar");
+        roleTargetUrlMap.put(Role.REPARTIDOR.getName(), "/orden/mostrar?estado=PENDIENTE");
 
         final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         for(final GrantedAuthority grantedAuthority : authorities) {

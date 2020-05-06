@@ -17,6 +17,8 @@ public class Usuario {
     private Role role;
     @OneToOne(mappedBy = "usuario")
     private Direccion direccion;
+    @OneToMany(mappedBy = "usuario")
+    private List<Orden> ordenes;
 
     public Usuario() {
     }
@@ -85,7 +87,11 @@ public class Usuario {
         this.direccion = direccion;
     }
 
-    public Direccion obtenerDireccionDefault() {
-        return direccion;
+    public List<Orden> getOrdenes() {
+        return ordenes;
+    }
+
+    public void setOrdenes(List<Orden> ordenes) {
+        this.ordenes = ordenes;
     }
 }

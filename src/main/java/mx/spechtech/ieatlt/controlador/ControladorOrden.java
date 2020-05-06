@@ -76,6 +76,7 @@ public class ControladorOrden {
     @GetMapping(path = "/mostrar")
     public String mostrarOrdenes(@RequestParam Estado estado, Model model) {
         model.addAttribute("ordenes", repositorioOrden.findByEstado(estado));
+        model.addAttribute("usuario", servicioAutenticacion.usuarioActual());
         return "/orden/listado";
     }
 
