@@ -32,14 +32,14 @@
                                     </button>
                                 </td>
                                 <td th:if="${usuario.getRole().getName() == 'ROLE_ADMINISTRADOR'}">
-                                    <a type="button" class="btn btn-outline-info"
+                                    <a type="button" class="btn btn-info"
                                             th:href="@{/alimentos/actualizar/{id}(id=${alimento.id})}">
                                         Actualizar
                                     </a>
                                 </td>
                                 <td th:if="${usuario.getRole().getName() == 'ROLE_ADMINISTRADOR'}">
                                     <form th:action="@{/alimentos/eliminar(id=${alimento.getId()})}" method="post">
-                                        <button type="submit" class="btn btn-outline-danger">
+                                        <button type="submit" class="btn btn-danger">
                                             Eliminar
                                         </button>
                                     </form>
@@ -60,7 +60,7 @@
                             ¡Agrega alimentos al carrito!
                         </p>
                         <ul id="carrito"> </ul>
-                        <a hidden id="order" type="button" class="btn btn-outline-info">
+                        <a hidden id="order" type="button" class="btn btn-info">
                             Agregar al carrito
                         </a>
                     </div>

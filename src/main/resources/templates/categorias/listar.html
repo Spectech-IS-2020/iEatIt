@@ -20,14 +20,14 @@
                                 <td th:text="${categoria.nombre}" />
                                 <td th:text="${categoria.descripcion}" />
                                 <td th:if="${usuario.getRole().getName() == 'ROLE_ADMINISTRADOR'}">
-                                    <a type="button" class="btn btn-outline-info"
+                                    <a type="button" class="btn btn-info"
                                             th:href="@{/categorias/actualizar/{id}(id=${categoria.id})}">
                                         Actualizar
                                     </a>
                                 </td>
                                 <td th:if="${usuario.getRole().getName() == 'ROLE_ADMINISTRADOR'}">
                                     <form th:action="@{/categorias/eliminar(id=${categoria.getId()})}" method="post">
-                                        <button type="submit" class="btn btn-outline-danger">
+                                        <button type="submit" class="btn btn-danger">
                                             Eliminar
                                         </button>
                                     </form>

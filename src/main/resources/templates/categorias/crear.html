@@ -4,7 +4,7 @@
     <div th:replace="fragments :: nav"></div>
     <body>
         <div class="container">
-            <form th:action="@{/categorias/crear}" th:object="${categoria}" method="post" autocomplete="off">
+            <form class="py-5" th:action="@{/categorias/crear}" th:object="${categoria}" method="post" autocomplete="off">
                 <div class="form-group">
                     <label for="nombre">
                         Nombre
