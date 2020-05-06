@@ -56,6 +56,9 @@
                     </div>
                     <div th:if="${usuario.getRole().getName() == 'ROLE_CLIENTE'}">
                         <h1> Carrito </h1>
+                        <p class="font-weight-light" id="foodMsg">
+                            ¡Agrega alimentos al carrito!
+                        </p>
                         <ul id="carrito"> </ul>
                         <a hidden id="order" type="button" class="btn btn-outline-info">
                             Agregar al carrito
@@ -67,31 +70,56 @@
     </body>
     <div th:replace="fragments :: bootstrap-js"></div>
     <script type="text/javascript">
+        var ids = [];
+
+        function toggleFood(id, name) {
+            if (ids.includes(id)) {
+                const index = ids.indexOf(id);
+                if (index > -1)
+                    ids.splice(index, 1);
+
+                var element;
+                $("ul li").each(function(li) {
+                    if ($(this).attr("data-id") == id)
+                        element = $(this);
+                });
+                element.remove();
+                if (ids.length == 0) {
+                    $("#order").prop("hidden", true);
+                    $("#foodMsg").prop("hidden", false);
+                }
+            }
+            else {
+                $("#carrito").append(
+                    "<li data-id=" + id + ">" + name + "</li>"
+                );
+                ids.push(id);
+                $("#order").prop("hidden", false);
+                $("#foodMsg").prop("hidden", true);
+            }
+        }
+
         $(".order").on( "click", function(event) {
             var id = $(this).attr("data-id");
             var name = $(this).attr("data-name");
-            $("#carrito").append(
-                "<li data-id=" + id + ">" + name + "</li>"
-            );
+
             $("#order").prop("hidden", false);
-            $(this).prop("disabled", true);
-            // if ($(this).attr("data-id") == "true") {
-            //     $(this).html("<i data-feather='minus-square'></i>");
-            //     $(this).attr("data-id", "false")
-            // }
-            // else {
-            //     $(this).html("<i data-feather='plus-square'></i>");
-            //     $(this).attr("data-id", "true")
-            // }
-            // $(this).toggleClass("btn-success").toggleClass("btn-danger");
-            // feather.replace();
+            if ($(this).attr("data-toReq") == "true") {
+                $(this).html("<i data-feather='minus-square'></i>");
+                $(this).attr("data-toReq", "false")
+            }
+            else {
+                $(this).html("<i data-feather='plus-square'></i>");
+                $(this).attr("data-toReq", "true")
+            }
+
+            $(this).toggleClass("btn-success").toggleClass("btn-danger");
+            feather.replace();
+
+            toggleFood(id, name);
+            console.log(ids);
         });
         $("#order").on( "click", function( event ) {
-            var ids = [];
-            $("ul li").each(function(li) {
-                ids.push($(this).attr("data-id"));
-            });
-
             $.ajax({
                 type: "POST",
                 contentType : 'application/json; charset=utf-8',
