@@ -33,8 +33,14 @@ public class ControladorAlimento {
     }
 
     @PostMapping(path = "/crear")
-    public ModelAndView crearAlimento(@ModelAttribute Alimento alimento) {
+    public ModelAndView crearAlimento(@ModelAttribute Alimento alimento, Model model) {
         repositorioAlimento.save(alimento);
+        model.addAttribute("isAlert", true);
+        model.addAttribute("alertType", "success");
+        model.addAttribute("alertHeading", "Alimento creado con éxito");
+        model.addAttribute("alertText", "El alimento " + alimento.getNombre() +
+                        " ha sido agregado a la lista de alimentos.");
+        model.addAttribute("usuario", servicioAutenticacion.usuarioActual());
         return new ModelAndView("redirect:/alimentos/listar");
     }
 

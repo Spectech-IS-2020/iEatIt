@@ -33,9 +33,13 @@ public class ControladorCategoria {
     }
 
     @PostMapping(path = "/crear")
-    public ModelAndView crearCategoria(@ModelAttribute Categoria categoria) {
+    public ModelAndView crearCategoria(@ModelAttribute Categoria categoria, Model model) {
         repositorioCategoria.save(categoria);
-
+        model.addAttribute("isAlert", true);
+        model.addAttribute("alert-type", "success");
+        model.addAttribute("alert-heading", "Categoria creada con éxito");
+        model.addAttribute("alert-text", "La categoría " + categoria.getNombre() +
+                        " ha sido agregada a la lista de categorías.");
         return new ModelAndView("redirect:/categorias/listar");
     }
 

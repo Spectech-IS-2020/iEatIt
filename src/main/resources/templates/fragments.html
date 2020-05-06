@@ -17,6 +17,17 @@
         <script src="https://unpkg.com/feather-icons"></script>
     </head>
 
+    <div th:fragment="alert" >
+        <div th:if="${isAlert}" class='alert alert-success' role="alert">
+            <h4 class="alert-heading" th:text="${alertHeading}"> </h4>
+            <p th:text="${alertText}"> </p>
+        </div>
+    </div>
+    <!-- <div th:fragment="alert" class='alert alert-success' role="alert">
+        <h4 class="alert-heading" th:text="${alert-heading}"> </h4>
+        <p th:text="${alert-text}"></p>
+    </div> -->
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="nav">
         <a class="navbar-brand" th:href="@{/home}"> iEatIt </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
