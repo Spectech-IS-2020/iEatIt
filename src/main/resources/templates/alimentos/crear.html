@@ -29,7 +29,7 @@
             </div>
         </nav>
         <div class="container">
-            <form th:action="@{/alimentos/crear}" th:object="${alimento}" method="post">
+            <form th:action="@{/alimentos/crear}" th:object="${alimento}" method="post" autocomplete="off">
                 <div class="form-group">
                     <label for="nombre">
                         Nombre

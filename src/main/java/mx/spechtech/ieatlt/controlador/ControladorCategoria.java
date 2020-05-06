@@ -28,6 +28,7 @@ public class ControladorCategoria {
     public String crearCategoria(Model model) {
         model.addAttribute("categoria", new Categoria());
         model.addAttribute("title", "Crear categoria");
+        model.addAttribute("usuario", servicioAutenticacion.usuarioActual());
         return "categorias/crear";
     }
 
@@ -50,6 +51,7 @@ public class ControladorCategoria {
     public String listarCategorias(@PathVariable("id") int id, Model model) {
         model.addAttribute("categoria", repositorioCategoria.findById(id).get());
         model.addAttribute("title", "Actualizar categoria");
+        model.addAttribute("usuario", servicioAutenticacion.usuarioActual());
         return "categorias/actualizar";
     }
 

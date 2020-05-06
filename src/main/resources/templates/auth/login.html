@@ -12,7 +12,7 @@
                 <div th:if="${param.error}">
                     Error al iniciar sesión.
                 </div>
-                <form class="card-body" th:action="@{/login}" method="post">
+                <form class="card-body" th:action="@{/login}" method="post" autocomplete="off">
                     <div class="form-group">
                         <label for="email">Email</label>
                         <div class="input-group">

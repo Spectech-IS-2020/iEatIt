@@ -10,7 +10,6 @@
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">id</th>
                 <th scope="col">Hora</th>
                 <th scope="col">Direccion</th>
                 <th scope="col">Cliente</th>
@@ -20,7 +19,6 @@
             </thead>
             <tbody>
             <tr th:each="orden: ${ordenes}">
-                <td th:text="${orden.getIdOrden()}"></td>
                 <td th:text="${orden.getHoraDeEntregaAproximada()}"></td>
                 <td th:text="${orden.getDireccionDeEntrega().getDireccion()}"></td>
                 <td th:text="${orden.getUsuario().getNombre()}"></td>

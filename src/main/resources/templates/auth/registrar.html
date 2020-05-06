@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head th:replace="fragments :: head"></head>
-<body>
 <nav th:replace="fragments :: nav"></nav>
 
+<body>
 <div class="container">
     <div class="row py-5">
         <div class="mx-auto col-md-10">
             <div class="card">
                 <h4 class="card-header">Registrar</h4>
-                <form class="card-body" action="/registrar" th:object="${formRegistro}" method="POST" enctype="utf8">
+                <form class="card-body" action="/registrar" th:object="${formRegistro}" method="POST" enctype="utf8" autocomplete="off">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -109,6 +109,6 @@
     }
 </script>
 
-<div th:replace="fragments :: bootstrap-js"></div>
 </body>
+<div th:replace="fragments :: bootstrap-js"></div>
 </html>

@@ -28,6 +28,7 @@ public class ControladorAlimento {
     public String crearAlimento(Model model) {
         model.addAttribute("alimento", new Alimento());
         model.addAttribute("title", "Crear alimento");
+        model.addAttribute("usuario", servicioAutenticacion.usuarioActual());
         return "alimentos/crear";
     }
 
@@ -50,6 +51,7 @@ public class ControladorAlimento {
     public String listarAlimentos(@PathVariable("id") int id, Model model) {
         model.addAttribute("alimento", repositorioAlimento.findById(id).get());
         model.addAttribute("title", "Actualizar alimento");
+        model.addAttribute("usuario", servicioAutenticacion.usuarioActual());
         return "alimentos/actualizar";
     }
 

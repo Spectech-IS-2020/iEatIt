@@ -30,7 +30,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/alimentos/listar"> Alimentos </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" th:if="${usuario != null && usuario.getRole().getName() == 'ROLE_ADMINISTRADOR'}">
                     <a class="nav-link" href="/orden/mostrar?estado=PENDIENTE"> Ordenes </a>
                 </li>
                 <li th:if="${usuario == null}" class="nav-item">

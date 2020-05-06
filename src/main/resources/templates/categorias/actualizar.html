@@ -1,33 +1,8 @@
 <!DOCTYPE HTML>
 <html xmlns:th="https://www.thymeleaf.org">
-    <head>
-        <title> Categorías </title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <script src="https://unpkg.com/feather-icons"></script>
-    </head>
+    <div th:replace="fragments :: head"></div>
+    <div th:replace="fragments :: nav"></div>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="/"> iEatIt </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link">
-                            Categorias
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/alimentos/listar"> Alimentos </a>
-                    </li>
-                    <li class="nav-item my-2 my-lg-0">
-                        <a class="nav-link" href="#"> Iniciar sesión </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
         <div class="container">
             <form action="#" th:action="@{/categorias/actualizar(id=${categoria.getId()})}" th:object="${categoria}" method="post">
                 <div class="form-group">

@@ -4,17 +4,11 @@
     <div th:replace="fragments :: nav"></div>
     <body>
         <div class="container">
-            <div th:if="${usuario.getRole().getName() == 'ROLE_ADMINISTRADOR'}">
-                <a href="/alimentos/crear" class="text-white btn btn-success">
-                        <i data-feather="plus"></i>
-                </a>
-            </div>
             <div class="row">
                 <div class="col-9">
                     <table class="table table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th class="text-center" scope="col"> # </th>
                                 <th class="text-center" scope="col"> Nombre </th>
                                 <th class="text-center" scope="col"> Precio </th>
                                 <th class="text-center" scope="col"> Descripción </th>
@@ -28,7 +22,6 @@
                         </thead>
                         <tbody class="text-center">
                             <tr th:each="alimento: ${alimentos}">
-                                <th scope="row" th:text="${alimento.id}" />
                                 <td th:text="${alimento.nombre}" />
                                 <td th:text="${alimento.precio}" />
                                 <td th:text="${alimento.descripcion}" />
@@ -56,14 +49,18 @@
                     </table>
                 </div>
                 <div class="col-3">
-                    <h1> Carrito </h1>
-                    <ul id="carrito"> </ul>
-                    <a hidden id="order" type="button" class="btn btn-outline-info">
-                        Agregar al carrito
-                    </a>
-                    <!-- <form id="shop" hidden action="/orden/crear" method="post">
-                        <input type="text" name="" value="">
-                    </form> -->
+                    <div th:if="${usuario.getRole().getName() == 'ROLE_ADMINISTRADOR'}">
+                        <a href="/alimentos/crear" class="text-white btn btn-success">
+                            Crear alimento <i data-feather="plus"></i>
+                        </a>
+                    </div>
+                    <div th:if="${usuario.getRole().getName() == 'ROLE_CLIENTE'}">
+                        <h1> Carrito </h1>
+                        <ul id="carrito"> </ul>
+                        <a hidden id="order" type="button" class="btn btn-outline-info">
+                            Agregar al carrito
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

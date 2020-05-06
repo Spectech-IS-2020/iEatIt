@@ -85,6 +85,7 @@ public class ControladorOrden {
         Optional<Orden> orden = repositorioOrden.findById(idOrden);
         model.addAttribute("orden", orden.get());
         model.addAttribute("title", "Detalles de orden");
+        model.addAttribute("usuario", servicioAutenticacion.usuarioActual());
         return "orden/detalles";
     }
 
