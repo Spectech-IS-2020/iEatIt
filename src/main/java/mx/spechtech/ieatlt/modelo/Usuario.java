@@ -1,8 +1,7 @@
 package mx.spechtech.ieatlt.modelo;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Usuario {
@@ -16,6 +15,8 @@ public class Usuario {
     @Transient
     private String confContrasenia;
     private Role role;
+    @OneToOne(mappedBy = "usuario")
+    private Direccion direccion;
 
     public Usuario() {
     }
@@ -74,5 +75,17 @@ public class Usuario {
 
     public void setConfContrasenia(String confContrasenia) {
         this.confContrasenia = confContrasenia;
+    }
+
+    public Direccion getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(Direccion direccion) {
+        this.direccion = direccion;
+    }
+
+    public Direccion obtenerDireccionDefault() {
+        return direccion;
     }
 }

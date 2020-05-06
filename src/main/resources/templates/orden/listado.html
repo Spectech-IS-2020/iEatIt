@@ -3,7 +3,7 @@
 <head th:replace="fragments :: head"></head>
 <body>
 
-<nav th:replace="fragments :: navbar"></nav>
+<nav th:replace="fragments :: nav"></nav>
 
 <div class="container">
     <div class="row">
@@ -23,7 +23,7 @@
                 <td th:text="${orden.getIdOrden()}"></td>
                 <td th:text="${orden.getHoraDeEntregaAproximada()}"></td>
                 <td th:text="${orden.getDireccionDeEntrega().getDireccion()}"></td>
-                <td th:text="${orden.getCliente().getNombre()}"></td>
+                <td th:text="${orden.getUsuario().getNombre()}"></td>
                 <td th:text="${orden.getCostoTotal()}"></td>
                 <td><a th:href="@{'/orden/detalles/' + ${orden.getIdOrden()}}" class="btn btn-success">Detalles</a></td>
             </tr>

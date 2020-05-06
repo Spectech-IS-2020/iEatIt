@@ -21,16 +21,16 @@ public class Orden {
     @ManyToOne
     private Direccion direccionDeEntrega;
     @ManyToOne
-    private Cliente cliente;
+    private Usuario usuario;
     @ManyToMany
     private List<Alimento> alimentos;
 
     public Orden() {
     }
 
-    public Orden(List<Alimento> alimentos, Cliente cliente, Direccion direccionDeEntrega) {
+    public Orden(List<Alimento> alimentos, Usuario usuario, Direccion direccionDeEntrega) {
         this.alimentos = alimentos;
-        this.cliente = cliente;
+        this.usuario = usuario;
         this.direccionDeEntrega = direccionDeEntrega;
         horaCreacion = new Date();
         asignarHoraDeEntrega();
@@ -82,8 +82,8 @@ public class Orden {
     }
 
 
-    public Cliente getCliente() {
-        return cliente;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
     public List<Alimento> getAlimentos() {

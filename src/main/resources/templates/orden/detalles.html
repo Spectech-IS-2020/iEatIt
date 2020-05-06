@@ -3,7 +3,7 @@
 <head th:replace="fragments :: head"></head>
 <body>
 
-<nav th:replace="fragments :: navbar"></nav>
+<nav th:replace="fragments :: nav"></nav>
 
 <div class="container">
     <div class="row">
@@ -13,7 +13,7 @@
                 <div class="card-text">
                     <p>
                         <span th:text="${'Orden: ' + orden.getIdOrden() + ' (' + orden.getEstado() + ')'}"></span><br>
-                        <span th:text="${'Nombre: ' + orden.getCliente().getNombre()}"></span><br>
+                        <span th:text="${'Nombre: ' + orden.getUsuario().getNombre()}"></span><br>
                         <span th:text="${'Dirección de entrega: ' + orden.getDireccionDeEntrega().getDireccion()}"></span><br>
                         <span th:text="${'Fecha de creación: ' + orden.getHoraCreacion()}"></span><br>
                         <span th:text="${'Hora de entrega estimada: ' + orden.getHoraDeEntregaAproximada()}"></span><br>

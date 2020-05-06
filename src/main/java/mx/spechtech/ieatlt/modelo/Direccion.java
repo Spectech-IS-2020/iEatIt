@@ -9,7 +9,7 @@ public class Direccion {
     private Long id;
 
     private String direccion;
-    @ManyToOne
+    @OneToOne
     private Usuario usuario;
 
     public Direccion() {
