@@ -56,6 +56,23 @@ public class ControladorPrincipal {
         return "redirect:/home";
     }
 
+
+    @GetMapping("/administrador/registrar")
+    public String registrarRepartidor(Model model) {
+        model.addAttribute("usuario", servicioAutenticacion.usuarioActual());
+        model.addAttribute("formRegistro", new FormRegistro());
+        model.addAttribute("title", "Crear cuenta");
+        return "administrador/registrar-repartidor";
+    }
+
+    @PostMapping("/administrador/registrar")
+    public String registrarRepartidor(@ModelAttribute FormRegistro formRegistro) {
+        Usuario usuario = formRegistro.buildUsuario();
+        usuario.setContrasenia(usuario.getEmail());
+        servicioUsuario.guardarRepartidor(usuario, formRegistro.buildDireccion());
+        return "redirect:/administrador/registrar";
+    }
+
     @GetMapping("/cliente/index")
     public String clienteIndex() {
         return "cliente/index";

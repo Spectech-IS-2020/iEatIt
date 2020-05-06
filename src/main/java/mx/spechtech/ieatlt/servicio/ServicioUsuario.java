@@ -5,5 +5,5 @@ import mx.spechtech.ieatlt.modelo.Usuario;
 
 public interface ServicioUsuario {
     void guardarCliente(Usuario usuario, Direccion direccion);
-    void guardarRepartidor(Usuario usuario);
+    void guardarRepartidor(Usuario usuario, Direccion direccion);
 }

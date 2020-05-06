@@ -33,7 +33,9 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
         repositorioDireccion.save(direccion);
     }
 
-    public void guardarRepartidor(Usuario usuario) {
+    public void guardarRepartidor(Usuario usuario, Direccion direccion) {
         save(usuario, Role.REPARTIDOR);
+        direccion.setUsuario(usuario);
+        repositorioDireccion.save(direccion);
     }
 }
