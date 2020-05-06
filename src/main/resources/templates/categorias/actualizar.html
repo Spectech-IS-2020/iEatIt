@@ -4,7 +4,7 @@
     <div th:replace="fragments :: nav"></div>
     <body>
         <div class="container">
-            <form action="#" th:action="@{/categorias/actualizar(id=${categoria.getId()})}" th:object="${categoria}" method="post">
+            <form class="py-5" action="#" th:action="@{/categorias/actualizar(id=${categoria.getId()})}" th:object="${categoria}" method="post">
                 <div class="form-group">
                     <label for="nombre">
                         Nombre

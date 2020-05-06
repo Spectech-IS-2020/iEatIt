@@ -35,7 +35,6 @@ public class ControladorAlimento {
     @PostMapping(path = "/crear")
     public ModelAndView crearAlimento(@ModelAttribute Alimento alimento) {
         repositorioAlimento.save(alimento);
-
         return new ModelAndView("redirect:/alimentos/listar");
     }
 
