@@ -24,6 +24,8 @@ public class Orden {
     private Usuario usuario;
     @ManyToMany
     private List<Alimento> alimentos;
+    @ManyToOne
+    private Usuario repartidor;
 
     public Orden() {
     }
@@ -88,5 +90,23 @@ public class Orden {
 
     public List<Alimento> getAlimentos() {
         return alimentos;
+    }
+
+    public Usuario getRepartidor() {
+        return repartidor;
+    }
+
+    public void setRepartidor(Usuario repartidor) {
+        this.repartidor = repartidor;
+    }
+
+    public Estado getSiguienteEstado() {
+        if(estado == Estado.PENDIENTE) {
+            return Estado.LISTA;
+        } else if(estado == Estado.LISTA) {
+            return Estado.EN_CAMINO;
+        } else {
+            return Estado.ENTREGADA;
+        }
     }
 }

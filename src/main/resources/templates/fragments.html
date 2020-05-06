@@ -24,15 +24,26 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
+                <li class="nav-item" th:if="${usuario == null || !usuario.esRepartidor()}">
                     <a class="nav-link" href="/categorias/listar"> Categorias </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" th:if="${usuario == null || !usuario.esRepartidor()}">
                     <a class="nav-link" href="/alimentos/listar"> Alimentos </a>
                 </li>
-                <li class="nav-item" th:if="${usuario != null && usuario.getRole().getName() == 'ROLE_ADMINISTRADOR'}">
-                    <a class="nav-link" href="/orden/mostrar?estado=PENDIENTE"> Ordenes </a>
+                <li class="nav-item" th:if="${usuario != null && !usuario.esRepartidor() }">
+                    <a class="nav-link" href="/orden/mostrar"> Ordenes </a>
                 </li>
+                <li class="nav-item" th:if="${usuario != null && usuario.esAdmin() }">
+                    <a class="nav-link" href="/administrador/registrar"> Registrar Repartidor </a>
+                </li>
+                <li class="nav-item" th:if="${usuario != null && usuario.esRepartidor() }">
+                    <a class="nav-link" href="/orden/mostrar"> Ordenes Listas </a>
+                </li>
+                <li class="nav-item" th:if="${usuario != null && usuario.esRepartidor() }">
+                    <a class="nav-link" href="/orden/mostrar?estado=EN_CAMINO"> Ordenes En Camino </a>
+                </li>
+
+
                 <li th:if="${usuario == null}" class="nav-item">
                     <a class="nav-link" href="/login"> Iniciar sesión </a>
                 </li>

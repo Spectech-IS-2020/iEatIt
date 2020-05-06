@@ -13,7 +13,8 @@
                     <h3 class="card-title"></h3>
                     <div class="card-text">
                         <p>
-                            <span th:text="${'Orden: ' + orden.getIdOrden() + ' (' + orden.getEstado() + ')'}"></span><br>
+                            <span th:text="${'Orden: ' + orden.getIdOrden()}"></span><br>
+                            <span th:text="${'Estado: ' + orden.getEstado()}"></span><br>
                             <span th:text="${'Nombre: ' + orden.getUsuario().getNombre()}"></span><br>
                             <span th:text="${'Dirección de entrega: ' + orden.getDireccionDeEntrega().getDireccion()}"></span><br>
                             <span th:text="${'Fecha de creación: ' + orden.getHoraCreacion()}"></span><br>
@@ -41,11 +42,11 @@
                             </tr>
                             </tbody>
                         </table>
-                        <form th:action="@{/orden/estado}" method="post">
-                            <label>Cambiar a Lista:</label>
-                            <input type="hidden" value="LISTA" name="estado"/>
+                        <form class="py-3" th:if="${!usuario.esCliente()}" th:action="@{/orden/estado}" method="post">
+                            <label>Actualizar orden a: </label>
+                            <input type="hidden" th:value="${orden.getSiguienteEstado()}" name="estado"/>
                             <input type="hidden" th:value="${orden.getIdOrden()}" name="idOrden"/>
-                            <button type="submit" class="btn btn-primary">Cambiar Estado</button>
+                            <button type="submit" class="btn btn-primary" th:text="${orden.getSiguienteEstado()}"></button>
                         </form>
                     </div>
                 </div>

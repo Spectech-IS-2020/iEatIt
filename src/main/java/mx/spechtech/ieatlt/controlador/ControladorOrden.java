@@ -44,7 +44,7 @@ public class ControladorOrden {
     /**
      * Almacena la orden con los alimentos con id en idAlimentos
      *
-     * @param idAlimentos
+     * @param
      * @return
      */
     @PostMapping(path="/crear", headers="Content-Type=application/json")
@@ -90,17 +90,32 @@ public class ControladorOrden {
     }
 
     @GetMapping(path = "/mostrar")
-    public String mostrarOrdenes(@RequestParam Estado estado, Model model) {
-        model.addAttribute("ordenes", repositorioOrden.findByEstado(estado));
-        model.addAttribute("usuario", servicioAutenticacion.usuarioActual());
+    public String mostrarOrdenes(@RequestParam(required = false) Estado estado, Model model) {
+        Usuario usuario = servicioAutenticacion.usuarioActual();
+        model.addAttribute("usuario", usuario);
+        if(usuario.esCliente()) {
+            model.addAttribute("ordenes", usuario.getOrdenes());
+        } else if(usuario.esAdmin()) {
+            model.addAttribute("ordenes", repositorioOrden.findByEstado(Estado.PENDIENTE));
+        } else if(usuario.esRepartidor()) {
+            estado = (estado == null) ? Estado.LISTA : estado;
+            if(estado == Estado.LISTA) {
+                model.addAttribute("ordenes", repositorioOrden.findByEstado(estado));
+            } else {
+                model.addAttribute("ordenes", repositorioOrden.findByEstadoAndRepartidor(estado, usuario));
+            }
+        }
         return "/orden/listado";
     }
 
     @PostMapping(path = "/estado")
     public String cambiarEstado(@RequestParam Estado estado, @RequestParam String idOrden) {
         Orden orden = (repositorioOrden.findById(idOrden)).get();
+        if(orden.getEstado() == Estado.LISTA) {
+            orden.setRepartidor(servicioAutenticacion.usuarioActual());
+        }
         orden.setEstado(estado);
         repositorioOrden.save(orden);
-        return "redirect:/orden/mostrar?estado=PENDIENTE";
+        return "redirect:/orden/mostrar";
     }
 }

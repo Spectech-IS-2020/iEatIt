@@ -19,6 +19,8 @@ public class Usuario {
     private Direccion direccion;
     @OneToMany(mappedBy = "usuario")
     private List<Orden> ordenes;
+    @OneToMany(mappedBy = "repartidor")
+    private List<Orden> ordenesAsignadas;
 
     public Usuario() {
     }
@@ -93,5 +95,25 @@ public class Usuario {
 
     public void setOrdenes(List<Orden> ordenes) {
         this.ordenes = ordenes;
+    }
+
+    public List<Orden> getOrdenesAsignadas() {
+        return ordenesAsignadas;
+    }
+
+    public void setOrdenesAsignadas(List<Orden> ordenesAsignadas) {
+        this.ordenesAsignadas = ordenesAsignadas;
+    }
+
+    public boolean esCliente() {
+        return role == Role.CLIENTE;
+    }
+
+    public boolean esAdmin() {
+        return role == Role.ADMINISTRADOR;
+    }
+
+    public boolean esRepartidor() {
+        return role == Role.REPARTIDOR;
     }
 }
