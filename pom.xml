@@ -10,9 +10,9 @@
 	</parent>
 
 	<groupId>mx.spechtech</groupId>
-	<artifactId>ieatlt</artifactId>
+	<artifactId>ieatit</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ieatlt</name>
+	<name>ieatit</name>
 	<description>Project for IS-2020-2</description>
 
 	<properties>

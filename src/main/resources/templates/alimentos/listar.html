@@ -30,7 +30,10 @@
                                 <td th:text="${alimento.descripcion}" />
                                 <td th:if="${usuario.getRole().getName() == 'ROLE_CLIENTE'}">
                                     <button class="order text-white btn btn-success"
-                                        th:attr="data-id=${alimento.id}, data-toReq=true, data-name=${alimento.nombre}">
+                                        th:attr="data-id=${alimento.id},
+                                                 data-toReq=true,
+                                                 data-name=${alimento.nombre},
+                                                 data-price=${alimento.precio}">
                                         <i class="show" data-feather="plus-square"></i>
                                     </button>
                                 </td>
@@ -59,12 +62,15 @@
                     </div>
                     <div th:if="${usuario.getRole().getName() == 'ROLE_CLIENTE'}">
                         <h1> Carrito </h1>
+                        <p class="font-weight-lighter" id="price" data-price="0">
+
+                        </p>
                         <p class="font-weight-light" id="foodMsg">
                             ¡Agrega alimentos al carrito!
                         </p>
                         <ul id="carrito"> </ul>
                         <a hidden id="order" type="button" class="btn btn-info">
-                            Agregar al carrito
+                            Confirmar orden
                         </a>
                     </div>
                 </div>
@@ -75,7 +81,7 @@
     <script type="text/javascript">
         var ids = [];
 
-        function toggleFood(id, name) {
+        function toggleFood(id, name, foodPrice) {
             if (ids.includes(id)) {
                 const index = ids.indexOf(id);
                 if (index > -1)
@@ -89,22 +95,35 @@
                 element.remove();
                 if (ids.length == 0) {
                     $("#order").prop("hidden", true);
+                    $("#price").prop("hidden", true);
                     $("#foodMsg").prop("hidden", false);
                 }
+
+                var price = parseInt($("#price").attr("data-price"));
+                price = price - parseInt(foodPrice);
+                $("#price").attr("data-price", price);
+                $("#price").html("Total: $" + price + " MXN");
             }
             else {
                 $("#carrito").append(
-                    "<li data-id=" + id + ">" + name + "</li>"
+                    "<li data-id=" + id + " data-price=" + foodPrice + ">" + name + "</li>"
                 );
                 ids.push(id);
                 $("#order").prop("hidden", false);
+                $("#price").prop("hidden", false);
                 $("#foodMsg").prop("hidden", true);
+
+                var price = parseInt($("#price").attr("data-price"));
+                price = price + parseInt(foodPrice);
+                $("#price").attr("data-price", price);
+                $("#price").html("Total: $" + price + " MXN");
             }
         }
 
         $(".order").on( "click", function(event) {
             var id = $(this).attr("data-id");
             var name = $(this).attr("data-name");
+            var price = $(this).attr("data-price");
 
             $("#order").prop("hidden", false);
             if ($(this).attr("data-toReq") == "true") {
@@ -119,8 +138,7 @@
             $(this).toggleClass("btn-success").toggleClass("btn-danger");
             feather.replace();
 
-            toggleFood(id, name);
-            console.log(ids);
+            toggleFood(id, name, price);
         });
         $("#order").on( "click", function( event ) {
             $.ajax({
