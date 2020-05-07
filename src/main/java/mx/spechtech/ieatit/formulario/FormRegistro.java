@@ -9,6 +9,7 @@ public class FormRegistro {
     private String apellidoPaterno;
     private String apellidoMaterno;
     private String contrasenia;
+    private String telefono;
     private String confContrasenia;
     private String direccion;
 
@@ -45,6 +46,14 @@ public class FormRegistro {
 
     public void setApellidoMaterno(String apellidoMaterno) {
         this.apellidoMaterno = apellidoMaterno;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
     public String getContrasenia() {

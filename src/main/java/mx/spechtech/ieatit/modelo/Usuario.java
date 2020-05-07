@@ -12,6 +12,7 @@ public class Usuario {
     private String apellidoPaterno;
     private String apellidoMaterno;
     private String contrasenia;
+    private String telefono;
     @Transient
     private String confContrasenia;
     private Role role;
@@ -63,6 +64,14 @@ public class Usuario {
 
     public void setContrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
     public Role getRole() {
