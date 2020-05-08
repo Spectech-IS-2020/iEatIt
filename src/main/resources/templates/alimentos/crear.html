@@ -41,7 +41,7 @@
                     <label for="categoria">Categoria</label>
                     <select class="form-control" id="categoria" th:field="*{categoria}">
                         <option th:each="categoria: ${categorias}"
-                        th:value="${categoria.getId()}" th:text"${categoria.getNombre()}">
+                        th:value="${categoria.getId()}" th:text="${categoria.getNombre()}">
                         </option>
                     </select>
                 </div>
