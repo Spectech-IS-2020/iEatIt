@@ -15,6 +15,7 @@
                                 <th class="text-center" scope="col"> Nombre </th>
                                 <th class="text-center" scope="col"> Precio </th>
                                 <th class="text-center" scope="col"> Descripción </th>
+                                <th class="text-center" scope="col"> Categoría </th>
                                 <th th:if="${usuario.getRole().getName() == 'ROLE_CLIENTE'}"
                                     class="text-center" scope="col"> Pedir
                                 </th>
@@ -28,6 +29,7 @@
                                 <td th:text="${alimento.nombre}" />
                                 <td th:text="${alimento.precio}" />
                                 <td th:text="${alimento.descripcion}" />
+                                <td th:text="${alimento.categoria}" />
                                 <td th:if="${usuario.getRole().getName() == 'ROLE_CLIENTE'}">
                                     <button class="order text-white btn btn-success"
                                         th:attr="data-id=${alimento.id},

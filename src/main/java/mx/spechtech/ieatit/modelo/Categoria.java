@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 @Entity
 // @Table(schema="ieatit", name="categoria")
@@ -18,13 +20,16 @@ public class Categoria {
     private String nombre;
     // @Column(name="Descripcion", table="categoria")
     private String descripcion;
+    @OneToMany(mappedBy = "categoria")
+    private List<Alimento> alimentos;
 
     public Categoria() {}
 
-    public Categoria(int id, String nombre, String descripcion) {
+    public Categoria(int id, String nombre, String descripcion, List<Alimento> alimentos) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
+        this.alimentos = alimentos;
     }
 
     public int getId() {
@@ -49,5 +54,13 @@ public class Categoria {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public List<Alimento> getAlimentos() {
+        return alimentos;
+    }
+
+    public void setAlimentos(List<Alimento> alimentos) {
+        this.alimentos = alimentos;
     }
 }

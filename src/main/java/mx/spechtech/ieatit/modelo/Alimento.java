@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 // @Table(schema="ieatit", name="alimento")
@@ -20,14 +21,17 @@ public class Alimento {
     private int precio;
     // @Column(name="Descripcion", table="alimento")
     private String descripcion;
+    @ManyToOne
+    private Categoria categoria;
 
     public Alimento() {}
 
-    public Alimento(int id, String nombre, int precio, String descripcion) {
+    public Alimento(int id, String nombre, int precio, String descripcion, Categoria categoria) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
         this.descripcion = descripcion;
+        this.categoria = categoria;
     }
 
     public int getId() {
@@ -60,5 +64,13 @@ public class Alimento {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 }

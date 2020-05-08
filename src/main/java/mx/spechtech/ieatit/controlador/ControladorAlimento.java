@@ -1,7 +1,9 @@
 package mx.spechtech.ieatit.controlador;
 
 import mx.spechtech.ieatit.modelo.Alimento;
+import mx.spechtech.ieatit.modelo.Categoria;
 import mx.spechtech.ieatit.repositorio.RepositorioAlimento;
+import mx.spechtech.ieatit.repositorio.RepositorioCategoria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +22,8 @@ import mx.spechtech.ieatit.servicio.ServicioAutenticacion;
 public class ControladorAlimento {
     @Autowired
     private RepositorioAlimento repositorioAlimento;
+    @Autowired
+    private RepositorioCategoria repositorioCategoria;
 
     @Autowired
     private ServicioAutenticacion servicioAutenticacion;
@@ -29,6 +33,7 @@ public class ControladorAlimento {
         model.addAttribute("alimento", new Alimento());
         model.addAttribute("title", "Crear alimento");
         model.addAttribute("usuario", servicioAutenticacion.usuarioActual());
+        model.addAttribute("categorias", repositorioCategoria.findAll());
         return "alimentos/crear";
     }
 
@@ -57,6 +62,7 @@ public class ControladorAlimento {
         model.addAttribute("alimento", repositorioAlimento.findById(id).get());
         model.addAttribute("title", "Actualizar alimento");
         model.addAttribute("usuario", servicioAutenticacion.usuarioActual());
+        model.addAttribute("categorias", repositorioCategoria.findAll());
         return "alimentos/actualizar";
     }
 
@@ -68,6 +74,7 @@ public class ControladorAlimento {
         alimento.setNombre(actualizacion.getNombre());
         alimento.setPrecio(actualizacion.getPrecio());
         alimento.setDescripcion(actualizacion.getDescripcion());
+        alimento.setCategoria(actualizacion.getCategoria());
         repositorioAlimento.save(alimento);
 
         return new ModelAndView("redirect:/alimentos/listar");
