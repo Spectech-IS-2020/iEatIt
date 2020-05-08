@@ -59,10 +59,12 @@ public class ControladorAlimento {
 
     @GetMapping(path="/actualizar/{id}")
     public String listarAlimentos(@PathVariable("id") int id, Model model) {
-        model.addAttribute("alimento", repositorioAlimento.findById(id).get());
+        Alimento alimento = repositorioAlimento.findById(id).get();
+        model.addAttribute("alimento", alimento);
         model.addAttribute("title", "Actualizar alimento");
         model.addAttribute("usuario", servicioAutenticacion.usuarioActual());
         model.addAttribute("categorias", repositorioCategoria.findAll());
+        model.addAttribute("currentCategoryId", alimento.getCategoria().getId());
         return "alimentos/actualizar";
     }
 

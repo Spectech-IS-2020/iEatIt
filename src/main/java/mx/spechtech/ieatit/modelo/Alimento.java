@@ -18,7 +18,7 @@ public class Alimento {
     // @Column(name="Nombre", table="alimento")
     private String nombre;
     // @Column(name="Precio", table="alimento")
-    private int precio;
+    private float precio;
     // @Column(name="Descripcion", table="alimento")
     private String descripcion;
     @ManyToOne
@@ -26,7 +26,7 @@ public class Alimento {
 
     public Alimento() {}
 
-    public Alimento(int id, String nombre, int precio, String descripcion, Categoria categoria) {
+    public Alimento(int id, String nombre, float precio, String descripcion, Categoria categoria) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
@@ -46,11 +46,11 @@ public class Alimento {
         return nombre;
     }
 
-    public void setPrecio(int precio) {
+    public void setPrecio(float precio) {
         this.precio = precio;
     }
 
-    public int getPrecio() {
+    public float getPrecio() {
         return precio;
     }
 
