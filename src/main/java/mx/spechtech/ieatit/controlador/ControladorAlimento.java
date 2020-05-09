@@ -16,6 +16,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.PathVariable;
 import mx.spechtech.ieatit.servicio.ServicioAutenticacion;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.RequestPart;
+import java.io.IOException;
+import java.io.File;
+import java.io.FileOutputStream;
 
 @Controller
 @RequestMapping(path = "/alimentos")
@@ -38,8 +43,18 @@ public class ControladorAlimento {
     }
 
     @PostMapping(path = "/crear")
-    public ModelAndView crearAlimento(@ModelAttribute Alimento alimento, Model model) {
+    public ModelAndView crearAlimento(@ModelAttribute Alimento alimento, Model model,
+                                      @RequestParam("img") MultipartFile img) throws IOException {
+        String nombreImagen = alimento.getId() + img.getOriginalFilename();
+        alimento.setImagen(nombreImagen);
         repositorioAlimento.save(alimento);
+
+        File upload = new File("src/main/resources/static/imgs/" + nombreImagen);
+        upload.createNewFile();
+        FileOutputStream fout = new FileOutputStream(upload);
+        fout.write(img.getBytes());
+        fout.close();
+
         model.addAttribute("isAlert", true);
         model.addAttribute("alertType", "success");
         model.addAttribute("alertHeading", "Alimento creado con éxito");

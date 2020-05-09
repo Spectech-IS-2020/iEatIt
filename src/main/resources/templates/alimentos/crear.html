@@ -3,7 +3,8 @@
 <div th:replace="fragments :: head"></div>
 <div th:replace="fragments :: nav"></div>
         <div class="container">
-            <form class="py-5" th:action="@{/alimentos/crear}" th:object="${alimento}" method="post" autocomplete="off">
+            <form class="py-5" th:action="@{/alimentos/crear}"
+            th:object="${alimento}" method="post" autocomplete="off" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="nombre">
                         Nombre
@@ -60,6 +61,12 @@
                         Categoría del alimento
                     </small>
                 </div>
+                <!-- <div class="custom-file"> -->
+                    <input type="file"  id="imagen" name="img">
+                    <label class="custom-file-label" for="imagen">
+                        Elige una imagen
+                    </label>
+                <!-- </div> -->
                 <button type="submit" class="btn btn-primary">
                     Crear
                 </button>

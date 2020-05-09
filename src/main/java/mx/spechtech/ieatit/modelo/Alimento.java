@@ -23,15 +23,19 @@ public class Alimento {
     private String descripcion;
     @ManyToOne
     private Categoria categoria;
+    // @Column(name="imagen", table="alimento")
+    private String imagen;
 
     public Alimento() {}
 
-    public Alimento(int id, String nombre, float precio, String descripcion, Categoria categoria) {
+    public Alimento(int id, String nombre, float precio, String descripcion,
+                    Categoria categoria, String imagen) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
         this.descripcion = descripcion;
         this.categoria = categoria;
+        this.imagen = imagen;
     }
 
     public int getId() {
@@ -72,5 +76,13 @@ public class Alimento {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
 }
