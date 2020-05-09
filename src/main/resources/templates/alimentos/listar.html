@@ -9,52 +9,44 @@
             </div>
             <div class="row py-5">
                 <div class="col-9">
-                    <table class="table table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th class="text-center" scope="col"> Nombre </th>
-                                <th class="text-center" scope="col"> Precio </th>
-                                <th class="text-center" scope="col"> Descripción </th>
-                                <th class="text-center" scope="col"> Categoría </th>
-                                <th th:if="${usuario.getRole().getName() == 'ROLE_CLIENTE'}"
-                                    class="text-center" scope="col"> Pedir
-                                </th>
-                                <th th:if="${usuario.getRole().getName() == 'ROLE_ADMINISTRADOR'}"
-                                    class="text-center" scope="col" colspan="2"> Opciones
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-center">
-                            <tr th:each="alimento: ${alimentos}">
-                                <td th:text="${alimento.nombre}" />
-                                <td th:text="${alimento.precio}" />
-                                <td th:text="${alimento.descripcion}" />
-                                <td th:text="${alimento.categoria.getNombre()}" />
-                                <td th:if="${usuario.getRole().getName() == 'ROLE_CLIENTE'}">
-                                    <button class="order text-white btn btn-success"
-                                        th:attr="data-id=${alimento.id},
-                                                 data-toReq=true,
-                                                 data-name=${alimento.nombre},
-                                                 data-price=${alimento.precio}">
-                                        <i class="show" data-feather="plus-square"></i>
-                                    </button>
-                                </td>
-                                <td th:if="${usuario.getRole().getName() == 'ROLE_ADMINISTRADOR'}">
-                                    <a type="button" class="btn btn-info"
-                                            th:href="@{/alimentos/actualizar/{id}(id=${alimento.id})}">
-                                        Actualizar
-                                    </a>
-                                </td>
-                                <td th:if="${usuario.getRole().getName() == 'ROLE_ADMINISTRADOR'}">
-                                    <form th:action="@{/alimentos/eliminar(id=${alimento.getId()})}" method="post">
-                                        <button type="submit" class="btn btn-danger">
-                                            Eliminar
+                    <div class="row">
+                        <div th:each="alimento, iStat : ${alimentos}" class="col-4">
+                            <div class="card">
+                                <img class="card-img-top"
+                                     th:src="@{/imgs/{img}(img=${alimento.getImagen()})}">
+                                <div class="card-body">
+                                    <h5 class="card-title" th:text="${alimento.getNombre()}"></h5>
+                                    <p class="card-text" th:text="${alimento.getDescripcion()}"></p>
+                                    <div th:if="${usuario.getRole().getName() == 'ROLE_CLIENTE'}">
+                                        <button class="order text-white btn btn-success"
+                                            th:attr="data-id=${alimento.id},
+                                                     data-toReq=true,
+                                                     data-name=${alimento.nombre},
+                                                     data-price=${alimento.precio}">
+                                            <i class="show" data-feather="plus-square"></i>
                                         </button>
-                                    </form>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                    </div>
+                                    <div th:if="${usuario.getRole().getName() == 'ROLE_ADMINISTRADOR'}" class="btn-group">
+                                        <button type="button" class="btn btn-info dropdown-toggle"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Opciones
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item"
+                                               th:href="@{/alimentos/actualizar/{id}(id=${alimento.id})}">
+                                               Actualizar
+                                            </a>
+                                            <a class="dropdown-item delete"
+                                               th:attr="data-id=${alimento.id}"
+                                               href="#">
+                                               Eliminar
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-3">
                     <div th:if="${usuario.getRole().getName() == 'ROLE_ADMINISTRADOR'}">
@@ -152,6 +144,20 @@
             })
               .done(function(msg) {
                  console.log(msg);
+              });
+        });
+        $(".delete").on("click", function(event) {
+            var id = $(this).attr("data-id");
+            console.log("here");
+            $.ajax({
+                type: "POST",
+                contentType : 'application/json; charset=utf-8',
+                dataType : 'json',
+                url: "/alimentos/eliminar",
+                data: JSON.stringify(id),
+            })
+              .done(function(msg) {
+                 location.reload();
               });
         });
     </script>

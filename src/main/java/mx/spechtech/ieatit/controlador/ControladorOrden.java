@@ -69,7 +69,6 @@ public class ControladorOrden {
         Matcher m = p.matcher(alimentos);
         while (m.find())
             ids.add(m.group(1));
-        System.out.println(ids);
         return ids;
     }
 
