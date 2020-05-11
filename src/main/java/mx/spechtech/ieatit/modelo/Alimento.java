@@ -25,17 +25,20 @@ public class Alimento {
     private Categoria categoria;
     // @Column(name="imagen", table="alimento")
     private String imagen;
+    // @Column(name="disponible", table="alimento", columnDefinition = "boolean default true")
+    private Boolean disponible;
 
     public Alimento() {}
 
     public Alimento(int id, String nombre, float precio, String descripcion,
-                    Categoria categoria, String imagen) {
+                    Categoria categoria, String imagen, Boolean disponible) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
         this.descripcion = descripcion;
         this.categoria = categoria;
         this.imagen = imagen;
+        this.disponible = true;
     }
 
     public int getId() {
@@ -84,5 +87,13 @@ public class Alimento {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
+    }
+
+    public Boolean getDisponible() {
+        return disponible;
+    }
+
+    public void setDisponible(Boolean disponible) {
+        this.disponible = disponible;
     }
 }

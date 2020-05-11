@@ -22,6 +22,9 @@ import org.springframework.web.bind.annotation.RequestPart;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.function.Consumer;
 
 @Controller
 @RequestMapping(path = "/alimentos")
@@ -46,8 +49,9 @@ public class ControladorAlimento {
     @PostMapping(path = "/crear")
     public ModelAndView crearAlimento(@ModelAttribute Alimento alimento, Model model,
                                       @RequestParam("img") MultipartFile img) throws IOException {
-        String nombreImagen = alimento.getId() + img.getOriginalFilename();
+        String nombreImagen = img.getOriginalFilename();
         alimento.setImagen(nombreImagen);
+        alimento.setDisponible(true);
         repositorioAlimento.save(alimento);
 
         File upload = new File("src/main/resources/static/imgs/" + nombreImagen);
@@ -67,7 +71,8 @@ public class ControladorAlimento {
 
     @GetMapping(path="/listar")
     public String listarAlimentos(Model model) {
-        model.addAttribute("alimentos", repositorioAlimento.findAll());
+
+        model.addAttribute("alimentos", repositorioAlimento.findByDisponible(true));
         model.addAttribute("usuario", servicioAutenticacion.usuarioActual());
         model.addAttribute("title", "Alimentos");
         return "alimentos/listar";
@@ -100,8 +105,10 @@ public class ControladorAlimento {
 
     @PostMapping(path="/eliminar", headers="Content-Type=application/json")
     public String eliminarAlimento(@RequestBody String id) {
-        repositorioAlimento.deleteById(Integer.parseInt(id.replace("\"", "")));
-        // TODO: Delete img file
+        int idInt = Integer.parseInt(id.replace("\"", ""));
+        Alimento alimento = repositorioAlimento.findById(idInt).get();
+        alimento.setDisponible(false);
+        repositorioAlimento.save(alimento);
         return "redirect:/alimentos/listar";
     }
 }
