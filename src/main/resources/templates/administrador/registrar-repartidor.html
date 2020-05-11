@@ -6,6 +6,9 @@
 <body>
 <div class="container">
     <div class="row py-5">
+        <div th:if="${isAlert}" class="mx-auto col-dm-6">
+            <div th:replace="fragments :: alert"></div>
+        </div>
         <div class="mx-auto col-md-6">
             <div class="card">
                 <h4 class="card-header">Registrar nuevo repartidor</h4>

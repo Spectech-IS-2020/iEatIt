@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class ControladorPrincipal {
@@ -66,10 +67,17 @@ public class ControladorPrincipal {
     }
 
     @PostMapping("/administrador/registrar")
-    public String registrarRepartidor(@ModelAttribute FormRegistro formRegistro) {
+    public String registrarRepartidor(@ModelAttribute FormRegistro formRegistro, RedirectAttributes redirectAttributes) {
         Usuario usuario = formRegistro.buildUsuario();
         usuario.setContrasenia(usuario.getEmail());
         servicioUsuario.guardarRepartidor(usuario, formRegistro.buildDireccion());
+
+        redirectAttributes.addFlashAttribute("isAlert", true);
+        redirectAttributes.addFlashAttribute("alertType", "success");
+        redirectAttributes.addFlashAttribute("alertHeading", "Repartidor agregado con éxito");
+        redirectAttributes.addFlashAttribute("alertText", "El repartidor con email " + usuario.getEmail() +
+                " ha sido agregado a la lista de repartidores.");
+
         return "redirect:/administrador/registrar";
     }
 

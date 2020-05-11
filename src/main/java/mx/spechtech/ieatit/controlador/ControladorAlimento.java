@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import mx.spechtech.ieatit.servicio.ServicioAutenticacion;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.io.IOException;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -48,7 +50,8 @@ public class ControladorAlimento {
 
     @PostMapping(path = "/crear")
     public ModelAndView crearAlimento(@ModelAttribute Alimento alimento, Model model,
-                                      @RequestParam("img") MultipartFile img) throws IOException {
+                                      @RequestParam("img") MultipartFile img,
+                                      RedirectAttributes redirectAttributes) throws IOException {
         String nombreImagen = img.getOriginalFilename();
         alimento.setImagen(nombreImagen);
         alimento.setDisponible(true);
@@ -60,12 +63,12 @@ public class ControladorAlimento {
         fout.write(img.getBytes());
         fout.close();
 
-        model.addAttribute("isAlert", true);
-        model.addAttribute("alertType", "success");
-        model.addAttribute("alertHeading", "Alimento creado con éxito");
-        model.addAttribute("alertText", "El alimento " + alimento.getNombre() +
+        redirectAttributes.addFlashAttribute("isAlert", true);
+        redirectAttributes.addFlashAttribute("alertType", "success");
+        redirectAttributes.addFlashAttribute("alertHeading", "Alimento creado con éxito");
+        redirectAttributes.addFlashAttribute("alertText", "El alimento " + alimento.getNombre() +
                         " ha sido agregado a la lista de alimentos.");
-        model.addAttribute("usuario", servicioAutenticacion.usuarioActual());
+
         return new ModelAndView("redirect:/alimentos/listar");
     }
 
@@ -92,7 +95,8 @@ public class ControladorAlimento {
     @PostMapping(path="/actualizar")
     public ModelAndView actualizarAlimento(
         @RequestParam int id,
-        @ModelAttribute Alimento actualizacion) {
+        @ModelAttribute Alimento actualizacion,
+        RedirectAttributes redirectAttributes) {
         Alimento alimento = repositorioAlimento.findById(id).get();
         alimento.setNombre(actualizacion.getNombre());
         alimento.setPrecio(actualizacion.getPrecio());
@@ -100,15 +104,28 @@ public class ControladorAlimento {
         alimento.setCategoria(actualizacion.getCategoria());
         repositorioAlimento.save(alimento);
 
+        redirectAttributes.addFlashAttribute("isAlert", true);
+        redirectAttributes.addFlashAttribute("alertType", "info");
+        redirectAttributes.addFlashAttribute("alertHeading", "Alimento actualizado con éxito");
+        redirectAttributes.addFlashAttribute("alertText", "El alimento " + alimento.getNombre() +
+                " ha sido actualizado.");
+
         return new ModelAndView("redirect:/alimentos/listar");
     }
 
     @PostMapping(path="/eliminar", headers="Content-Type=application/json")
-    public String eliminarAlimento(@RequestBody String id) {
+    public String eliminarAlimento(@RequestBody String id, RedirectAttributes redirectAttributes) {
         int idInt = Integer.parseInt(id.replace("\"", ""));
         Alimento alimento = repositorioAlimento.findById(idInt).get();
         alimento.setDisponible(false);
         repositorioAlimento.save(alimento);
+
+        redirectAttributes.addFlashAttribute("isAlert", true);
+        redirectAttributes.addFlashAttribute("alertType", "danger");
+        redirectAttributes.addFlashAttribute("alertHeading", "Alimento eliminado con éxito");
+        redirectAttributes.addFlashAttribute("alertText", "El alimento " + alimento.getNombre() +
+                " ha sido eliminado de la lista de alimentos.");
+        redirectAttributes.addFlashAttribute("usuario", servicioAutenticacion.usuarioActual());
         return "redirect:/alimentos/listar";
     }
 }
