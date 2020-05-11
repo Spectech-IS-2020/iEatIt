@@ -3,8 +3,11 @@ package mx.spechtech.ieatit.controlador;
 import mx.spechtech.ieatit.formulario.FormRegistro;
 import mx.spechtech.ieatit.modelo.Usuario;
 import mx.spechtech.ieatit.servicio.ServicioAutenticacion;
+import mx.spechtech.ieatit.servicio.ServicioNotificaciones;
 import mx.spechtech.ieatit.servicio.ServicioUsuario;
+import mx.spechtech.ieatit.utils.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +22,9 @@ public class ControladorPrincipal {
 
     @Autowired
     private ServicioAutenticacion servicioAutenticacion;
+
+    @Autowired
+    private ServicioNotificaciones servicioNotificaciones;
 
     @GetMapping(value = {"/", "/home"})
     public String home(Model model) {
@@ -69,8 +75,14 @@ public class ControladorPrincipal {
     @PostMapping("/administrador/registrar")
     public String registrarRepartidor(@ModelAttribute FormRegistro formRegistro, RedirectAttributes redirectAttributes) {
         Usuario usuario = formRegistro.buildUsuario();
-        usuario.setContrasenia(usuario.getEmail());
+        String password = RandomString.randomAlphaNumeric(5);
+        usuario.setContrasenia(password);
         servicioUsuario.guardarRepartidor(usuario, formRegistro.buildDireccion());
+        try {
+            servicioNotificaciones.notificarRegistroRepartidor(usuario, password);
+        } catch (MailException e) {
+            System.out.println("*****\nError al mandar notificación.\n" + e + "*****");
+        }
 
         redirectAttributes.addFlashAttribute("isAlert", true);
         redirectAttributes.addFlashAttribute("alertType", "success");
