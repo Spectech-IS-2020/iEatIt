@@ -8,12 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.PathVariable;
 import mx.spechtech.ieatit.servicio.ServicioAutenticacion;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping(path = "/categorias")
@@ -33,12 +33,12 @@ public class ControladorCategoria {
     }
 
     @PostMapping(path = "/crear")
-    public ModelAndView crearCategoria(@ModelAttribute Categoria categoria, Model model) {
+    public ModelAndView crearCategoria(@ModelAttribute Categoria categoria, RedirectAttributes redirectAttributes) {
         repositorioCategoria.save(categoria);
-        model.addAttribute("isAlert", true);
-        model.addAttribute("alert-type", "success");
-        model.addAttribute("alert-heading", "Categoria creada con éxito");
-        model.addAttribute("alert-text", "La categoría " + categoria.getNombre() +
+        redirectAttributes.addFlashAttribute("isAlert", true);
+        redirectAttributes.addFlashAttribute("alertType", "success");
+        redirectAttributes.addFlashAttribute("alertHeading", "Categoria creada con éxito");
+        redirectAttributes.addFlashAttribute("alertText", "La categoría " + categoria.getNombre() +
                         " ha sido agregada a la lista de categorías.");
         return new ModelAndView("redirect:/categorias/listar");
     }
@@ -62,18 +62,33 @@ public class ControladorCategoria {
     @PostMapping(path="/actualizar")
     public ModelAndView actualizarCategoria(
         @RequestParam int id,
-        @ModelAttribute Categoria actualizacion) {
+        @ModelAttribute Categoria actualizacion,
+        RedirectAttributes redirectAttributes
+    ) {
         Categoria categoria = repositorioCategoria.findById(id).get();
         categoria.setNombre(actualizacion.getNombre());
         categoria.setDescripcion(actualizacion.getDescripcion());
         repositorioCategoria.save(categoria);
 
+        redirectAttributes.addFlashAttribute("isAlert", true);
+        redirectAttributes.addFlashAttribute("alertType", "info");
+        redirectAttributes.addFlashAttribute("alertHeading", "Categoria actualizada con éxito");
+        redirectAttributes.addFlashAttribute("alertText", "La categoría " + categoria.getNombre() +
+                " ha sido actualizada.");
+
         return new ModelAndView("redirect:/categorias/listar");
     }
 
     @PostMapping(path="/eliminar")
-    public ModelAndView eliminarCategoria(@RequestParam int id) {
+    public ModelAndView eliminarCategoria(@RequestParam int id, RedirectAttributes redirectAttributes) {
+        Categoria categoria = repositorioCategoria.findById(id).get();
         repositorioCategoria.deleteById(id);
+
+        redirectAttributes.addFlashAttribute("isAlert", true);
+        redirectAttributes.addFlashAttribute("alertType", "danger");
+        redirectAttributes.addFlashAttribute("alertHeading", "Categoria eliminada");
+        redirectAttributes.addFlashAttribute("alertText", "La categoría " + categoria.getNombre() +
+                " ha sido eliminada de la lista de categorías.");
 
         return new ModelAndView("redirect:/categorias/listar");
     }

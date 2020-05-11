@@ -4,10 +4,10 @@
     <div th:replace="fragments :: nav"></div>
     <body>
         <div class="container">
-            <div class="row" th:if="${isAlert == true}">
-                <div th:replace="fragments :: alert"></div>
-            </div>
             <div class="row py-5">
+                <div class="col-9">
+                    <div th:replace="fragments :: alert"></div>
+                </div>
                 <div class="col-9">
                     <table class="table table-bordered table-hover">
                         <thead>
@@ -20,8 +20,8 @@
                         </thead>
                         <tbody class="text-center">
                             <tr th:each="categoria: ${categorias}">
-                                <td th:text="${categoria.nombre}" />
-                                <td th:text="${categoria.descripcion}" />
+                                <td th:text="${categoria.nombre}">
+                                <td th:text="${categoria.descripcion}">
                                 <td th:if="${usuario.getRole().getName() == 'ROLE_ADMINISTRADOR'}">
                                     <a type="button" class="btn btn-info"
                                             th:href="@{/categorias/actualizar/{id}(id=${categoria.id})}">
