@@ -57,7 +57,12 @@ public class ControladorAlimento {
         alimento.setDisponible(true);
         repositorioAlimento.save(alimento);
 
-        File upload = new File("target/classes/static/imgs/" + nombreImagen);
+        String directoryName = "target/classes/static/imgs";
+        File directory = new File(directoryName);
+        if(!directory.exists()) {
+            directory.mkdirs();
+        }
+        File upload = new File(directoryName + "/" + nombreImagen);
         upload.createNewFile();
         FileOutputStream fout = new FileOutputStream(upload);
         fout.write(img.getBytes());
