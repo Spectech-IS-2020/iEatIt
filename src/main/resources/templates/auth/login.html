@@ -5,12 +5,14 @@
 <nav th:replace="fragments :: nav"></nav>
 
 <div class="container">
-    <div class="row py-5">
+    <div class="row pt-3">
         <div th:if="${param.error}" class="col-md-6 mx-auto">
             <div class="alert alert-danger" role="alert">
                 Error al iniciar sesión, email o contraseña inválidos.
             </div>
         </div>
+    </div>
+    <div class="row">
         <div class="mx-auto col-md-6">
             <div class="card">
                 <h4 class="card-header">Iniciar Sesión</h4>
